@@ -1,5 +1,6 @@
 {
   "name": "skipthedragon/inertia-bundle",
+  "version": "0.0.1",
   "description": "A Symfony adapter for Inertia.js",
   "type": "symfony-bundle",
   "license": "MIT",

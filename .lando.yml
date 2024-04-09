@@ -1,0 +1,19 @@
+# https://docs.lando.dev/plugins/symfony/config.html
+
+name: hyper-search
+recipe: symfony
+config:
+  webroot: ./symfony/public
+  php: '8.2'
+  via: nginx
+  cache: memcached
+services:
+  node:
+    type: node:18
+    run:
+      - yarn
+tooling:
+  node:
+    service: node
+  yarn:
+    service: node

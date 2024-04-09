@@ -8,3 +8,7 @@ var
 bin
 .php_cs
 .php_cs.cache
+symfony
+node_modules
+.vscode
+yarn.lock
