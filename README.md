@@ -189,12 +189,12 @@ module.exports = config
 ## Making Inertia responses
 To make an Inertia response, inject the `Rompetomp\InertiaBundle\Service\InertiaInterface $inertia` typehint in your 
 controller, and use the render function on that Service:
+
 ```php
 <?php
 namespace App\Controller;
 
-use Rompetomp\InertiaBundle\Service\InertiaInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Rompetomp\InertiaBundle\src\Service\InertiaInterface;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DashboardController extends AbstractController
 {
@@ -207,24 +207,23 @@ class DashboardController extends AbstractController
 
 ## Sharing data
 To share data with all your components, use `$inertia->share($key, $data)`. This can be done in an EventSubscriber:
+
 ```php
 <?php
 
 namespace App\EventSubscriber;
 
-use Rompetomp\InertiaBundle\Service\InertiaInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
+use Rompetomp\InertiaBundle\src\Service\InertiaInterface;use Symfony\Component\EventDispatcher\EventSubscriberInterface;use Symfony\Component\HttpKernel\KernelEvents;
 
 class InertiaSubscriber implements EventSubscriberInterface
 {
-    /** @var \Rompetomp\InertiaBundle\Service\InertiaInterface */
+    /** @var \Rompetomp\InertiaBundle\src\Service\InertiaInterface */
     protected $inertia;
 
     /**
      * AppSubscriber constructor.
      *
-     * @param \Rompetomp\InertiaBundle\Service\InertiaInterface $inertia
+     * @param \Rompetomp\InertiaBundle\src\Service\InertiaInterface $inertia
      */
     public function __construct(InertiaInterface $inertia)
     {
@@ -279,12 +278,12 @@ It's more efficient to use lazy data evaluation server-side you are using partia
 To use lazy data you need to use `Rompetomp\InertiaBundle\Service\Inertia::lazy`
 
 Sample usage:
+
 ```php
 <?php
 namespace App\Controller;
 
-use Rompetomp\InertiaBundle\Service\InertiaInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Rompetomp\InertiaBundle\src\Service\InertiaInterface;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DashboardController extends AbstractController
 {

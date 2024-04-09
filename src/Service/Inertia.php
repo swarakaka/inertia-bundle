@@ -1,8 +1,8 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\Service;
+namespace Rompetomp\InertiaBundle\src\Service;
 
-use Rompetomp\InertiaBundle\LazyProp;
+use Rompetomp\InertiaBundle\src\LazyProp;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;

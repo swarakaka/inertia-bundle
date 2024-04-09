@@ -1,9 +1,9 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\Ssr;
+namespace Rompetomp\InertiaBundle\src\Ssr;
 
 use Exception;
-use Rompetomp\InertiaBundle\Service\InertiaInterface;
+use Rompetomp\InertiaBundle\src\Service\InertiaInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class HttpGateway implements GatewayInterface

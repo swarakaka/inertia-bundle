@@ -1,9 +1,9 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\Tests;
+namespace Rompetomp\InertiaBundle\src\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Rompetomp\InertiaBundle\Service\Inertia;
+use Rompetomp\InertiaBundle\src\Service\Inertia;
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +16,7 @@ use Twig\Environment;
 
 class InertiaTest extends TestCase
 {
-    /** @var \Rompetomp\InertiaBundle\Service\Inertia */
+    /** @var \Rompetomp\InertiaBundle\src\Service\Inertia */
     private $inertia;
     /** @var \Mockery\LegacyMockInterface|\Mockery\MockInterface|\Twig\Environment */
     private $environment;

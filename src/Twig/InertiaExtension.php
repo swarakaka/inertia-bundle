@@ -1,10 +1,10 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\Twig;
+namespace Rompetomp\InertiaBundle\src\Twig;
 
-use Rompetomp\InertiaBundle\Service\InertiaInterface;
-use Rompetomp\InertiaBundle\Ssr\GatewayInterface;
-use Rompetomp\InertiaBundle\Ssr\Response;
+use Rompetomp\InertiaBundle\src\Service\InertiaInterface;
+use Rompetomp\InertiaBundle\src\Ssr\GatewayInterface;
+use Rompetomp\InertiaBundle\src\Ssr\Response;
 use Twig\Extension\AbstractExtension;
 use Twig\Markup;
 use Twig\TwigFunction;

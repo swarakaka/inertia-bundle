@@ -11,6 +11,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  *
  * @since   2019-08-02
  */
-class RompetompInertiaBundle extends Bundle
+class InertiaBundle extends Bundle
 {
 }

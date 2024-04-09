@@ -1,6 +1,6 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\DependencyInjection;
+namespace Rompetomp\InertiaBundle\src\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

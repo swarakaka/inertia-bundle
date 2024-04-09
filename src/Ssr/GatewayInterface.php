@@ -1,6 +1,6 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\Ssr;
+namespace Rompetomp\InertiaBundle\src\Ssr;
 
 interface GatewayInterface
 {
