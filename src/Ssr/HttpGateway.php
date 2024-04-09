@@ -2,8 +2,8 @@
 
 namespace Rompetomp\InertiaBundle\Ssr;
 
-use Exception;
-use Rompetomp\InertiaBundle\Service\InertiaInterface;
+use Rompetomp\InertiaBundle\Architecture\GatewayInterface;
+use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -24,7 +24,7 @@ class HttpGateway implements GatewayInterface
      * Dispatch the Inertia page to the Server Side Rendering engine.
      * @throws TransportExceptionInterface|ClientExceptionInterface|DecodingExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface|TransportExceptionInterface
      */
-    public function dispatch(array $page): ?Response
+    public function dispatch(array $page): ?InertiaSsrResponse
     {
         $response = $this->httpClient->request(
             'POST',
@@ -40,7 +40,7 @@ class HttpGateway implements GatewayInterface
 
         $content = $response->toArray();
 
-        return new Response(
+        return new InertiaSsrResponse(
             implode("\n", $content['head']),
             $content['body']
         );

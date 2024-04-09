@@ -1,6 +1,6 @@
 services:
   rompetomp_inertia.inertia:
-    class: Rompetomp\InertiaBundle\Service\Inertia
+    class: Rompetomp\InertiaBundle\Service\InertiaService
     public: false
     arguments:
       $engine: '@twig'
@@ -19,7 +19,7 @@ services:
   Rompetomp\InertiaBundle\Ssr\GatewayInterface: '@rompetomp_inertia.gateway'
 
   rompetomp_inertia.twig_extension:
-    class: Rompetomp\InertiaBundle\Twig\InertiaExtension
+    class: Rompetomp\InertiaBundle\Twig\InertiaTwigExtension
     public: false
     arguments:
       $inertia: '@rompetomp_inertia.inertia'

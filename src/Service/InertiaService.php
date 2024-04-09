@@ -3,7 +3,8 @@
 namespace Rompetomp\InertiaBundle\Service;
 
 use Closure;
-use Rompetomp\InertiaBundle\LazyProp;
+use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
+use Rompetomp\InertiaBundle\Architecture\LazyProp;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -17,7 +18,7 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
-class Inertia implements InertiaInterface
+class InertiaService implements InertiaInterface
 {
     protected array $sharedProps = [];
 
@@ -31,17 +32,27 @@ class Inertia implements InertiaInterface
 
     protected string $ssrUrl = '';
 
+    protected ?string $rootView = null;
+
     /**
      * Inertia constructor.
      */
     public function __construct(
-        protected string               $rootView,
         protected Environment          $engine,
         protected RequestStack         $requestStack,
         private ContainerInterface     $container,
         protected ?SerializerInterface $serializer = null,
     )
-    {}
+    {
+        if ($this->container->hasParameter('inertia.ssr.enabled') && $this->container->getParameter('inertia.ssr.enabled')) {
+            $this->useSsr(true);
+            $this->setSsrUrl($this->container->getParameter('inertia.ssr.url'));
+        }
+
+        if ($this->container->hasParameter('inertia.root_view')) {
+            $this->setRootView($this->container->getParameter('inertia.root_view'));
+        }
+    }
 
     public function share(string $key, mixed $value = null): void
     {
@@ -76,7 +87,7 @@ class Inertia implements InertiaInterface
         $this->sharedContext[$key] = $value;
     }
 
-    public function getContext(string $key = null)
+    public function getContext(string $key = null): mixed
     {
         if ($key) {
             return $this->sharedContext[$key] ?? null;
@@ -100,7 +111,7 @@ class Inertia implements InertiaInterface
         $this->rootView = $rootView;
     }
 
-    public function getRootView(): string
+    public function getRootView(): ?string
     {
         return $this->rootView;
     }
@@ -132,6 +143,10 @@ class Inertia implements InertiaInterface
      */
     public function render(string $component, array $props = [], array $viewData = [], array $context = [], string $url = null): Response
     {
+        if ($this->rootView === null) {
+            throw new RuntimeError('The root view is not set. Inertia bundle requires a root view to render the page, set one globally in config/packages/inertia.yaml or pass it to the render method.');
+        }
+
         $context = array_merge($this->sharedContext, $context);
         $viewData = array_merge($this->sharedViewData, $viewData);
         $props = array_merge($this->sharedProps, $props);

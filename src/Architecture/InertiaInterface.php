@@ -1,8 +1,7 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\Service;
+namespace Rompetomp\InertiaBundle\Architecture;
 
-use Rompetomp\InertiaBundle\LazyProp;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -50,9 +49,10 @@ interface InertiaInterface
     public function context(string $key, mixed $value = null): void;
 
     /**
+     * @param string|null $key
      * @return mixed
      */
-    public function getContext(string $key = null);
+    public function getContext(string $key = null): mixed;
 
     /**
      * @return string|null
@@ -61,7 +61,7 @@ interface InertiaInterface
 
     public function setRootView(string $rootView): void;
 
-    public function getRootView(): string;
+    public function getRootView(): ?string;
 
     /**
      * Set if it uses ssr.

@@ -24,7 +24,7 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('inertia');
         $treeBuilder->getRootNode()
             ->children()
-                ->scalarNode('root_view')->defaultValue('app.html.twig')->end()
+                ->scalarNode('root_view')->defaultValue('base.html.twig')->end()
                 ->arrayNode('ssr')
                     ->addDefaultsIfNotSet()
                     ->children()

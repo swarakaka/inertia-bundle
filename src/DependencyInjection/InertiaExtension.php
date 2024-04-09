@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
 /**
- * Class InertiaExtension.
+ * Class InertiaTwigExtension.
  *
  * @author  Hannes Vermeire <hannes@codedor.be>
  *
@@ -27,9 +27,31 @@ class InertiaExtension extends ConfigurableExtension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yaml');
 
-        $definition = $container->getDefinition('rompetomp_inertia.inertia');
-        $definition->setArgument('$rootView', $mergedConfig['root_view']);
-        $definition->addMethodCall('useSsr', [$mergedConfig['ssr']['enabled']]);
-        $definition->addMethodCall('setSsrUrl', [$mergedConfig['ssr']['url']]);
+        foreach (self::transformKeys($mergedConfig) as $key => $value) {
+            $container->setParameter('inertia.' . $key, $value);
+        }
+    }
+
+    /**
+     * Transforms the keys of a multidimensional array to dot notation.
+     * @param array $array
+     * @param string $parentKey
+     * @return array
+     */
+    private function transformKeys(array $array, string $parentKey = ''): array
+    {
+        $result = array();
+
+        foreach ($array as $key => $value) {
+            $newKey = ($parentKey !== '') ? $parentKey . '.' . $key : $key;
+
+            if (is_array($value)) {
+                $result += self::transformKeys($value, $newKey);
+            } else {
+                $result[$newKey] = $value;
+            }
+        }
+
+        return $result;
     }
 }

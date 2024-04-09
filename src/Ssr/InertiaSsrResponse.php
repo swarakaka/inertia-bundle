@@ -2,7 +2,7 @@
 
 namespace Rompetomp\InertiaBundle\Ssr;
 
-class Response
+class InertiaSsrResponse
 {
     /**
      * Prepare the Inertia Server Side Rendering (SSR) response.

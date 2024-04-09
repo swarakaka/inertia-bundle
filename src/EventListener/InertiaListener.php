@@ -2,7 +2,7 @@
 
 namespace Rompetomp\InertiaBundle\EventListener;
 
-use Rompetomp\InertiaBundle\Service\InertiaInterface;
+use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;

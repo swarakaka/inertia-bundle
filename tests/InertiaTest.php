@@ -7,7 +7,7 @@ use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
 use Rompetomp\InertiaBundle\DependencyInjection\InertiaExtension;
 use Rompetomp\InertiaBundle\InertiaBundle;
-use Rompetomp\InertiaBundle\Service\Inertia;
+use Rompetomp\InertiaBundle\Service\InertiaService;
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\FrameworkExtension;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\DependencyInjection\Container;
@@ -22,27 +22,33 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Twig\Environment;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class InertiaTest extends TestCase
 {
-    private Inertia $inertia;
+    private InertiaService $inertia;
     private Container $container;
     private LegacyMockInterface|MockInterface|Environment $environment;
     private LegacyMockInterface|MockInterface|RequestStack $requestStack;
     private LegacyMockInterface|MockInterface|Serializer|null $serializer;
+    private array $inertiaConfig = ['root_view' => 'base.twig.html', 'ssr' => ['enabled' => false, 'url' => 'http://localhost:3000']];
 
     public function setUp(): void
     {
         $container = $this->createContainerBuilder([
             'framework' => ['secret' => 'testing', 'http_method_override' => false],
+            'inertia' => $this->inertiaConfig,
         ]);
+        $container->compile();
 
         $this->serializer = null;
         $this->container = $container;
         $this->environment = \Mockery::mock(Environment::class);
         $this->requestStack = \Mockery::mock(RequestStack::class);
 
-        $this->inertia = new Inertia('app.twig.html', $this->environment, $this->requestStack, $container, $this->serializer);
+        $this->inertia = new InertiaService($this->environment, $this->requestStack, $container, $this->serializer);
     }
 
     public function testSharedSingle()
@@ -75,7 +81,7 @@ class InertiaTest extends TestCase
 
     public function testRootView()
     {
-        $this->assertEquals('app.twig.html', $this->inertia->getRootView());
+        $this->assertEquals($this->inertiaConfig['root_view'], $this->inertia->getRootView());
     }
 
     public function testSetRootView()
@@ -91,7 +97,7 @@ class InertiaTest extends TestCase
         $mockRequest->allows()->getRequestUri()->andReturns('https://example.test');
         $this->requestStack->allows()->getCurrentRequest()->andReturns($mockRequest);
 
-        $this->inertia = new Inertia('app.twig.html', $this->environment, $this->requestStack, $this->container, $this->serializer);
+        $this->inertia = new InertiaService($this->environment, $this->requestStack, $this->container, $this->serializer);
 
         $response = $this->inertia->render('Dashboard');
         $this->assertInstanceOf(JsonResponse::class, $response);
@@ -104,7 +110,7 @@ class InertiaTest extends TestCase
         $mockRequest->allows()->getRequestUri()->andReturns('https://example.test');
         $this->requestStack->allows()->getCurrentRequest()->andReturns($mockRequest);
 
-        $this->inertia = new Inertia('app.twig.html', $this->environment, $this->requestStack, $this->container, $this->serializer);
+        $this->inertia = new InertiaService($this->environment, $this->requestStack, $this->container, $this->serializer);
 
         $response = $this->inertia->render('Dashboard', ['test' => 123]);
         $data = json_decode($response->getContent(), true);
@@ -118,7 +124,7 @@ class InertiaTest extends TestCase
         $mockRequest->allows()->getRequestUri()->andReturns('https://example.test');
         $this->requestStack->allows()->getCurrentRequest()->andReturns($mockRequest);
 
-        $this->inertia = new Inertia('app.twig.html', $this->environment, $this->requestStack, $this->container, $this->serializer);
+        $this->inertia = new InertiaService($this->environment, $this->requestStack, $this->container, $this->serializer);
         $this->inertia->share('app_name', 'Testing App 3');
         $this->inertia->share('app_version', '2.0.0');
 
@@ -127,6 +133,11 @@ class InertiaTest extends TestCase
         $this->assertEquals(['test' => 123, 'app_name' => 'Testing App 3', 'app_version' => '2.0.0'], $data['props']);
     }
 
+    /**
+     * @throws SyntaxError
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
     public function testRenderClosureProps()
     {
         $mockRequest = \Mockery::mock(Request::class);
@@ -134,9 +145,8 @@ class InertiaTest extends TestCase
         $mockRequest->allows()->getRequestUri()->andReturns('https://example.test');
         $this->requestStack->allows()->getCurrentRequest()->andReturns($mockRequest);
 
-        $this->inertia = new Inertia('app.twig.html', $this->environment, $this->requestStack, $this->container, $this->serializer);
+        $this->inertia = new InertiaService($this->environment, $this->requestStack, $this->container, $this->serializer);
 
-        /** @var JsonResponse $response */
         $response = $this->inertia->render('Dashboard', ['test' => function () {
             return 'test-value';
         }]);
@@ -146,6 +156,11 @@ class InertiaTest extends TestCase
         );
     }
 
+    /**
+     * @throws SyntaxError
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
     public function testRenderDoc()
     {
         $mockRequest = \Mockery::mock(Request::class);
@@ -155,7 +170,7 @@ class InertiaTest extends TestCase
 
         $this->environment->allows('render')->andReturn('<div>123</div>');
 
-        $this->inertia = new Inertia('app.twig.html', $this->environment, $this->requestStack, $this->container, $this->serializer);
+        $this->inertia = new InertiaService($this->environment, $this->requestStack, $this->container, $this->serializer);
 
         $response = $this->inertia->render('Dashboard');
         $this->assertInstanceOf(Response::class, $response);
@@ -199,6 +214,11 @@ class InertiaTest extends TestCase
         );
     }
 
+    /**
+     * @throws SyntaxError
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
     public function testTypesArePreservedUsingJsonEncode()
     {
         $mockRequest = \Mockery::mock(Request::class);
@@ -206,11 +226,16 @@ class InertiaTest extends TestCase
         $mockRequest->allows()->getRequestUri()->andReturns('https://example.test');
         $this->requestStack->allows()->getCurrentRequest()->andReturns($mockRequest);
 
-        $this->inertia = new Inertia('app.twig.html', $this->environment, $this->requestStack, $this->container, $this->serializer);
+        $this->inertia = new InertiaService($this->environment, $this->requestStack, $this->container, $this->serializer);
 
         $this->innerTestTypesArePreserved(false);
     }
 
+    /**
+     * @throws SyntaxError
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
     public function testTypesArePreservedUsingSerializer()
     {
         $mockRequest = \Mockery::mock(Request::class);
@@ -219,11 +244,16 @@ class InertiaTest extends TestCase
         $this->requestStack->allows()->getCurrentRequest()->andReturns($mockRequest);
 
         $this->serializer = new Serializer([new ObjectNormalizer()], [new JsonEncoder()]);
-        $this->inertia = new Inertia('app.twig.html', $this->environment, $this->requestStack, $this->container, $this->serializer);
+        $this->inertia = new InertiaService($this->environment, $this->requestStack, $this->container, $this->serializer);
 
         $this->innerTestTypesArePreserved(true);
     }
 
+    /**
+     * @throws RuntimeError
+     * @throws SyntaxError
+     * @throws LoaderError
+     */
     private function innerTestTypesArePreserved($usingSerializer = false)
     {
         $props = [
@@ -267,7 +297,7 @@ class InertiaTest extends TestCase
         $this->assertIsObject($responseProps['associative_array']);
     }
 
-    private static function createContainerBuilder(array $configs = [])
+    private static function createContainerBuilder(array $configs = []): ContainerBuilder
     {
         $container = new ContainerBuilder(new ParameterBag([
             'kernel.bundles' => ['FrameworkBundle' => FrameworkBundle::class, 'InertiaBundle' => InertiaBundle::class],

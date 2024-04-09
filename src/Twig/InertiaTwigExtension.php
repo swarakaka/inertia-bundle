@@ -2,21 +2,21 @@
 
 namespace Rompetomp\InertiaBundle\Twig;
 
-use Rompetomp\InertiaBundle\Service\InertiaInterface;
-use Rompetomp\InertiaBundle\Ssr\GatewayInterface;
-use Rompetomp\InertiaBundle\Ssr\Response;
+use Rompetomp\InertiaBundle\Architecture\GatewayInterface;
+use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
+use Rompetomp\InertiaBundle\Ssr\InertiaSsrResponse;
 use Twig\Extension\AbstractExtension;
 use Twig\Markup;
 use Twig\TwigFunction;
 
 /**
- * Class InertiaExtension.
+ * Class InertiaTwigExtension.
  *
  * @author  Hannes Vermeire <hannes@codedor.be>
  *
  * @since   2019-08-09
  */
-class InertiaExtension extends AbstractExtension
+class InertiaTwigExtension extends AbstractExtension
 {
     public function __construct(
         private InertiaInterface $inertia,
@@ -37,7 +37,7 @@ class InertiaExtension extends AbstractExtension
     {
         if ($this->inertia->isSsr()) {
             $response = $this->gateway->dispatch($page);
-            if ($response instanceof Response) {
+            if ($response instanceof InertiaSsrResponse) {
                 return new Markup($response->body, 'UTF-8');
             }
         }
@@ -49,7 +49,7 @@ class InertiaExtension extends AbstractExtension
     {
         if ($this->inertia->isSsr()) {
             $response = $this->gateway->dispatch($page);
-            if ($response instanceof Response) {
+            if ($response instanceof InertiaSsrResponse) {
                 return new Markup($response->head, 'UTF-8');
             }
         }
