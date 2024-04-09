@@ -1,9 +1,9 @@
 # Inertia.js Symfony Adapter
-[![CI](https://github.com/rompetomp/inertia-bundle/workflows/CI/badge.svg)](https://github.com/rompetomp/inertia-bundle/actions)
+[![CI](https://github.com/skipthedragon/inertia-bundle/workflows/CI/badge.svg)](https://github.com/skipthedragon/inertia-bundle/actions)
 [![StyleCI](https://github.styleci.io/repos/201484253/shield?style=flat)](https://github.styleci.io/repos/201484253)
 
 This is a Inertia.js server-side adapter based on [inertia-laravel](https://github.com/inertiajs/inertia-laravel), but
-for Symfony 5 and 6.
+for Symfony 5, 6 and 7.
 
 ## Installation
 First, make sure you have the twig, encore and serializer recipe:
@@ -13,7 +13,7 @@ composer require twig encore symfony/serializer-pack
 
 Install using Composer:
 ```console
-composer require rompetomp/inertia-bundle
+composer require skipthedragon/inertia-bundle
 ```
 ```console
 yarn add @inertiajs/inertia
@@ -48,10 +48,10 @@ contains the initial page information. This is what it looks like:
 <div id="app" data-page="<?php echo htmlspecialchars(json_encode($page)); ?>"></div>
 ```
 
-If you'd like a different root view, you can change it by creating a `config/packages/rompetomp_inertia.yaml` file
+If you'd like a different root view, you can change it by creating a `config/packages/skipthedragon_inertia.yaml` file
 and including this config:
 ```yaml
-rompetomp_inertia:
+inertia:
   root_view: 'name.html.twig'
 ```
 
@@ -352,10 +352,10 @@ module.exports = config
 
 ### Enabling SSR
 
-To enable the ssr you need to add a configuration for your package `config/packages/rompetomp_inertia.yaml` file
+To enable the ssr you need to add a configuration for your package `config/packages/skipthedragon_inertia.yaml` file
 
 ```yaml
-rompetomp_inertia:
+skipthedragon_inertia:
   ssr:
     enabled: true
     url: 'http://127.0.0.1:13714/render'

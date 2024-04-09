@@ -1,6 +1,6 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\src\Ssr;
+namespace Rompetomp\InertiaBundle\Ssr;
 
 class Response
 {
