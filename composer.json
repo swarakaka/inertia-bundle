@@ -1,5 +1,5 @@
 {
-  "name": "rompetomp/inertia-bundle",
+  "name": "skipthedragon/inertia-bundle",
   "description": "A Symfony adapter for Inertia.js",
   "type": "symfony-bundle",
   "license": "MIT",
@@ -7,11 +7,15 @@
     {
       "name": "Hannes Vermeire",
       "email": "hannesvermeire@gmail.com"
+    },
+    {
+      "name": "Tudorache Leonard-Valentin",
+      "email": "tudorache.leonard@wyverr.com"
     }
   ],
   "autoload": {
     "psr-4": {
-      "Rompetomp\\InertiaBundle\\": ""
+      "Rompetomp\\InertiaBundle\\": "src/"
     }
   },
   "require": {
