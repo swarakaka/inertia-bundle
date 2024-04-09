@@ -1,9 +1,9 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\src\Service;
+namespace Rompetomp\InertiaBundle\Service;
 
-use Rompetomp\InertiaBundle\src\LazyProp;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Rompetomp\InertiaBundle\LazyProp;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -15,8 +15,6 @@ use Twig\Environment;
 
 class Inertia implements InertiaInterface
 {
-    use ContainerAwareTrait;
-
     /** @var string */
     protected $rootView;
 
@@ -47,11 +45,20 @@ class Inertia implements InertiaInterface
     /** @var string */
     protected $ssrUrl = '';
 
+    private ContainerInterface $container;
+
     /**
      * Inertia constructor.
      */
-    public function __construct(string $rootView, Environment $engine, RequestStack $requestStack, ?SerializerInterface $serializer = null)
+    public function __construct(
+        string $rootView,
+        Environment $engine,
+        RequestStack $requestStack,
+        ContainerInterface $container,
+        ?SerializerInterface $serializer = null,
+    )
     {
+        $this->container = $container;
         $this->engine = $engine;
         $this->rootView = $rootView;
         $this->requestStack = $requestStack;

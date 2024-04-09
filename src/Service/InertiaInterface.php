@@ -1,8 +1,8 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\src\Service;
+namespace Rompetomp\InertiaBundle\Service;
 
-use Rompetomp\InertiaBundle\src\LazyProp;
+use Rompetomp\InertiaBundle\LazyProp;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

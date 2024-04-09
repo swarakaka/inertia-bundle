@@ -1,6 +1,6 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\src;
+namespace Rompetomp\InertiaBundle;
 
 class LazyProp
 {

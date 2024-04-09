@@ -1,17 +1,29 @@
 # https://docs.lando.dev/plugins/symfony/config.html
 
-name: hyper-search
+name: inertia-bundle
 recipe: symfony
 config:
   webroot: ./symfony/public
   php: '8.2'
   via: nginx
-  cache: memcached
 services:
+  appserver:
+    run:
+      - rm -rf symfony/
+      - wget https://get.symfony.com/cli/installer -O - | bash
+      - mv /var/www/.symfony5/bin/symfony /usr/local/bin/symfony
+      - symfony new --webapp symfony
+      # CD hell because composer doesn't like chaining commands ?? Or maybe it's just me.
+      - cd symfony/ && composer config repositories.'skipthedragon/inertia-bundle' path ../
+      - cd symfony/ && composer config minimum-stability dev
+      - cd symfony/ && composer config prefer-stable false
+      - cd symfony/ && composer require skipthedragon/inertia-bundle
+      - cd symfony/ && composer require symfony/webpack-encore-bundle
   node:
     type: node:18
     run:
-      - yarn
+      - cd symfony && yarn add @inertiajs/inertia @inertiajs/inertia-react react react-dom
+      - cd symfony && yarn add @babel/preset-react  sass-loader@^14.0.0 sass --dev
 tooling:
   node:
     service: node
