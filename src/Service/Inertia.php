@@ -2,6 +2,7 @@
 
 namespace Rompetomp\InertiaBundle\Service;
 
+use Closure;
 use Rompetomp\InertiaBundle\LazyProp;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,65 +13,42 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class Inertia implements InertiaInterface
 {
-    /** @var string */
-    protected $rootView;
+    protected array $sharedProps = [];
 
-    /** @var \Twig\Environment */
-    protected $engine;
+    protected array $sharedViewData = [];
 
-    /** @var SerializerInterface */
-    protected $serializer;
+    protected array $sharedContext = [];
 
-    /** @var array */
-    protected $sharedProps = [];
+    protected ?string $version = null;
 
-    /** @var array */
-    protected $sharedViewData = [];
+    protected bool $useSsr = false;
 
-    /** @var array */
-    protected $sharedContext = [];
-
-    /** @var \Symfony\Component\HttpFoundation\RequestStack */
-    protected $requestStack;
-
-    /** @var string */
-    protected $version = null;
-
-    /** @var bool */
-    protected $useSsr = false;
-
-    /** @var string */
-    protected $ssrUrl = '';
-
-    private ContainerInterface $container;
+    protected string $ssrUrl = '';
 
     /**
      * Inertia constructor.
      */
     public function __construct(
-        string $rootView,
-        Environment $engine,
-        RequestStack $requestStack,
-        ContainerInterface $container,
-        ?SerializerInterface $serializer = null,
+        protected string               $rootView,
+        protected Environment          $engine,
+        protected RequestStack         $requestStack,
+        private ContainerInterface     $container,
+        protected ?SerializerInterface $serializer = null,
     )
-    {
-        $this->container = $container;
-        $this->engine = $engine;
-        $this->rootView = $rootView;
-        $this->requestStack = $requestStack;
-        $this->serializer = $serializer;
-    }
+    {}
 
-    public function share(string $key, $value = null): void
+    public function share(string $key, mixed $value = null): void
     {
         $this->sharedProps[$key] = $value;
     }
 
-    public function getShared(string $key = null)
+    public function getShared(string $key = null): mixed
     {
         if ($key) {
             return $this->sharedProps[$key] ?? null;
@@ -79,12 +57,12 @@ class Inertia implements InertiaInterface
         return $this->sharedProps;
     }
 
-    public function viewData(string $key, $value = null): void
+    public function viewData(string $key, mixed $value = null): void
     {
         $this->sharedViewData[$key] = $value;
     }
 
-    public function getViewData(string $key = null)
+    public function getViewData(string $key = null): mixed
     {
         if ($key) {
             return $this->sharedViewData[$key] ?? null;
@@ -93,7 +71,7 @@ class Inertia implements InertiaInterface
         return $this->sharedViewData;
     }
 
-    public function context(string $key, $value = null): void
+    public function context(string $key, mixed $value = null): void
     {
         $this->sharedContext[$key] = $value;
     }
@@ -147,7 +125,12 @@ class Inertia implements InertiaInterface
         return $this->ssrUrl;
     }
 
-    public function render($component, $props = [], $viewData = [], $context = [], $url = null): Response
+    /**
+     * @throws SyntaxError
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
+    public function render(string $component, array $props = [], array $viewData = [], array $context = [], string $url = null): Response
     {
         $context = array_merge($this->sharedContext, $context);
         $viewData = array_merge($this->sharedViewData, $viewData);
@@ -165,7 +148,7 @@ class Inertia implements InertiaInterface
         array_walk_recursive($props, function (&$prop) {
             if ($prop instanceof LazyProp) {
                 $prop = call_user_func($prop);
-            } elseif ($prop instanceof \Closure) {
+            } elseif ($prop instanceof Closure) {
                 $prop = $prop();
             }
         });
@@ -202,9 +185,10 @@ class Inertia implements InertiaInterface
     }
 
     /**
-     * @param callable|string|array $callback
+     * @param callable|array|string $callback
+     * @return LazyProp
      */
-    public function lazy($callback): LazyProp
+    public function lazy(callable|array|string $callback): LazyProp
     {
         if (is_string($callback)) {
             $callback = explode('::', $callback, 2);
@@ -226,20 +210,23 @@ class Inertia implements InertiaInterface
     }
 
     /**
-     * Serializes the given objects with the given context if the Symfony Serializer is available. If not, uses `json_encode`.
+     * Serializes the given objects with the given context if the Symfony Serializer is available. If not, use `json_encode`.
      *
      * @see https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/AJAX_Security_Cheat_Sheet.md#always-return-json-with-an-object-on-the-outside
      *
+     * @param array $page
      * @param array $context
      *
      * @return array @return array returns a decoded array of the previously JSON-encoded data, so it can safely be given to {@see JsonResponse}
      */
-    private function serialize(array $page, $context = []): array
+    private function serialize(array $page, array $context = []): array
     {
         if (null !== $this->serializer) {
             $json = $this->serializer->serialize($page, 'json', array_merge([
                 'json_encode_options' => JsonResponse::DEFAULT_ENCODING_OPTIONS,
-                AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function () { return null; },
+                AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function () {
+                    return null;
+                },
                 AbstractObjectNormalizer::PRESERVE_EMPTY_OBJECTS => true,
                 AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true,
             ], $context));
@@ -247,11 +234,11 @@ class Inertia implements InertiaInterface
             $json = json_encode($page);
         }
 
-        return (array) json_decode($json, false);
+        return (array)json_decode($json, false);
     }
 
-    private static function array_only($array, $keys)
+    private static function array_only($array, $keys): array
     {
-        return array_intersect_key($array, array_flip((array) $keys));
+        return array_intersect_key($array, array_flip((array)$keys));
     }
 }

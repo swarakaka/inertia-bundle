@@ -4,43 +4,39 @@ namespace Rompetomp\InertiaBundle\Ssr;
 
 use Exception;
 use Rompetomp\InertiaBundle\Service\InertiaInterface;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class HttpGateway implements GatewayInterface
 {
-    private $interia;
-    private $httpClient;
-
-    public function __construct(HttpClientInterface $httpClient, InertiaInterface $inertia)
+    public function __construct(
+        private HttpClientInterface $httpClient,
+        private InertiaInterface $inertia
+    )
     {
-        $this->interia = $inertia;
-        $this->httpClient = $httpClient;
     }
 
     /**
      * Dispatch the Inertia page to the Server Side Rendering engine.
+     * @throws TransportExceptionInterface|ClientExceptionInterface|DecodingExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface|TransportExceptionInterface
      */
     public function dispatch(array $page): ?Response
     {
-        try {
-            $response = $this->httpClient->request(
-                'POST',
-                $this->interia->getSsrUrl(),
-                [
-                    'headers' => [
-                        'Content-Type: application/json',
-                        'Accept: application/json',
-                    ],
-                    'body' => json_encode($page),
-                ]
-            );
-        } catch (Exception $e) {
-            return null;
-        }
-
-        if (is_null($response)) {
-            return null;
-        }
+        $response = $this->httpClient->request(
+            'POST',
+            $this->inertia->getSsrUrl(),
+            [
+                'headers' => [
+                    'Content-Type: application/json',
+                    'Accept: application/json',
+                ],
+                'body' => json_encode($page),
+            ]
+        );
 
         $content = $response->toArray();
 

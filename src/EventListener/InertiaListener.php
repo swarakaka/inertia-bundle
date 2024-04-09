@@ -12,15 +12,10 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
  */
 class InertiaListener
 {
-    /**
-     * @var \Rompetomp\InertiaBundle\Service\InertiaInterface
-     */
-    protected $inertia;
 
-    /**
-     * @var bool
-     */
-    protected $debug;
+    protected InertiaInterface $inertia;
+
+    protected bool $debug;
 
     public function __construct(InertiaInterface $inertia, bool $debug)
     {
@@ -28,7 +23,7 @@ class InertiaListener
         $this->debug = $debug;
     }
 
-    public function onKernelRequest(RequestEvent $event)
+    public function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
         if (!$request->headers->get('X-Inertia')) {
@@ -43,7 +38,7 @@ class InertiaListener
         }
     }
 
-    public function onKernelResponse(ResponseEvent $event)
+    public function onKernelResponse(ResponseEvent $event): void
     {
         if (!$event->getRequest()->headers->get('X-Inertia')) {
             return;
