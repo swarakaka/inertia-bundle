@@ -1,7 +1,8 @@
 {
   "name": "skipthedragon/inertia-bundle",
-  "version": "0.0.1",
   "description": "A Symfony adapter for Inertia.js",
+  "keywords": ["Symfony", "bundle", "inertia", "bridge", "monolith", "php"],
+  "homepage": "https://github.com/SkipTheDragon/inertia-bundle",
   "type": "symfony-bundle",
   "license": "MIT",
   "authors": [
@@ -17,7 +18,10 @@
   "autoload": {
     "psr-4": {
       "Rompetomp\\InertiaBundle\\": "src/"
-    }
+    },
+    "exclude-from-classmap": [
+      "/tests/"
+    ]
   },
   "require": {
     "php": "^8",
