@@ -1,12 +1,37 @@
 ## Making Inertia responses
-To make an Inertia response, inject the `Rompetomp\InertiaBundle\Service\InertiaInterface $inertia` typehint in your
+To make an Inertia response, inject the `Rompetomp\InertiaBundle\Architecture\InertiaInterface $inertia` typehint in your
 controller, and use the render function on that Service:
+
+### Injecting the InertiaInterface in your controller class:
 
 ```php
 <?php
 namespace App\Controller;
 
-use Rompetomp\InertiaBundle\src\Service\InertiaInterface;
+use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+
+class DashboardController extends AbstractController
+{
+    public function __construct(
+        private InertiaInterface $inertia
+    ) {}
+
+    public function index() : Response
+    {
+        return $this->inertia->render('Dashboard', ['prop' => 'propValue']);
+    }
+}
+```
+
+### Injecting the InertiaInterface in your route:
+
+```php
+<?php
+namespace App\Controller;
+
+use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,6 +44,28 @@ class DashboardController extends AbstractController
 }
 ```
 
+### Using InertiaTrait
+
+```php
+<?php
+namespace App\Controller;
+
+use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Rompetomp\InertiaBundle\Controller\InertiaTrait;
+
+class DashboardController extends AbstractController
+{
+    use InertiaTrait;   
+    
+    public function index() : Response
+    {
+        return $this->inertia->render('Dashboard', ['prop' => 'propValue']);
+    }
+}
+```
+
 ## Sharing data
 To share data with all your components, use `$inertia->share($key, $data)`. This can be done in an EventSubscriber:
 
@@ -27,7 +74,7 @@ To share data with all your components, use `$inertia->share($key, $data)`. This
 
 namespace App\EventSubscriber;
 
-use Rompetomp\InertiaBundle\src\Service\InertiaInterface;
+use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -96,7 +143,7 @@ Sample usage:
 <?php
 namespace App\Controller;
 
-use Rompetomp\InertiaBundle\src\Service\InertiaInterface;
+use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DashboardController extends AbstractController
