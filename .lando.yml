@@ -18,7 +18,6 @@ services:
       - cd symfony/ && composer config minimum-stability dev
       - cd symfony/ && composer config prefer-stable false
       - cd symfony/ && composer require skipthedragon/inertia-bundle
-      - cd symfony/ && composer require symfony/webpack-encore-bundle
   node:
     type: node:18
     run:

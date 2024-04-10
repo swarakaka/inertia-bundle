@@ -6,7 +6,14 @@
 This is an Inertia.js server-side adapter based on [inertia-laravel](https://github.com/inertiajs/inertia-laravel), but
 for Symfony 5, 6 and 7.
 
-## Documentation
+## Quick start
+
+Install using Composer:
+```console
+composer require skipthedragon/inertia-bundle
+```
+
+## Table of contents
 
 - [Installation](docs/installation.md)
 - [Configuration](docs/configuration.md)
@@ -20,11 +27,11 @@ for Symfony 5, 6 and 7.
 
 ## Support
 
-| Name    |            |            |            |
-|---------|------------|------------|------------|
-| Symfony | ❌ 5.4      | 🆗 6.x     | ✅ 7.0      |
-| PHP     | ❌ 7.3      | ✅ 8.0      | ✅ 8.2      |
-| Inertia | ✅ >= 1.0.0 | ✅ >= 1.0.0 | ✅ >= 1.0.0 |
+| Name    |            |            |            |            |
+|---------|------------|------------|------------|------------|
+| Symfony | ❌ 4.4      | 🆗 5.4     | 🆗 6.x     | ✅ 7.0      |
+| PHP     | ❌ 7.3      | ✅ 8.0      | ✅ 8.0      | ✅ 8.2      |
+| Inertia | ✅ >= 1.0.0 | ✅ >= 1.0.0 | ✅ >= 1.0.0 | ✅ >= 1.0.0 |
 
 ### Legend
 - ❌ `Not supported`
