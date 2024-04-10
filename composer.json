@@ -1,6 +1,6 @@
 {
   "name": "skipthedragon/inertia-bundle",
-  "description": "A Symfony adapter for Inertia.js",
+  "description": "Inertia.js server-side adapter for Symfony 4, 5, 6 and 7.",
   "keywords": ["Symfony", "bundle", "inertia", "bridge", "monolith", "php"],
   "homepage": "https://github.com/SkipTheDragon/inertia-bundle",
   "type": "symfony-bundle",
