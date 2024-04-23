@@ -24,6 +24,7 @@ composer require skipthedragon/inertia-bundle
 - [Usage](docs/usage.md)
 - [Server-side rendering](docs/ssr.md)
 - [CSRF](docs/csrf.md)
+- [Error Handling](docs/error-handling.md)
 - [Contributing](docs/contributing.md)
 
 ## Support
