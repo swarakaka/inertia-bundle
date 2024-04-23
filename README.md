@@ -39,7 +39,7 @@ composer require skipthedragon/inertia-bundle
 - ❌ `Not supported`
 - ✅ `Supported and tested`
 - 🚧 `Work in progress`
-- 🆗 `Untested`
+- 🆗 `Supported but not tested yet`
 
 Maintained with ❤️ by [skipthedragon](https://github.com/SkipTheDragon). Built
 by [rompetomp](https://github.com/rompetomp).
