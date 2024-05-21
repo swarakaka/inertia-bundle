@@ -227,7 +227,7 @@ class InertiaService implements InertiaInterface
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function render(string $component, array $props = [], array $viewData = [], array $context = [], string $url = null): Response
+    public function render(string $component, array $props = [], array $viewData = [], array $context = [], ?string $url = null): Response
     {
         /**
          * If the root view is not set, throw an exception.
@@ -241,6 +241,10 @@ class InertiaService implements InertiaInterface
         $props = array_merge($this->sharedProps, $props);
         $request = $this->requestStack->getCurrentRequest();
         $url = $url ?? $request->getRequestUri();
+
+        if ($url === '') {
+            $url = null;
+        }
 
         /**
          * Get the props that should be loaded.

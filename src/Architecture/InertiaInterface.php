@@ -148,5 +148,5 @@ interface InertiaInterface
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function render(string $component, array $props = [], array $viewData = [], array $context = [], string $url = null): Response;
+    public function render(string $component, array $props = [], array $viewData = [], array $context = [], ?string $url = null): Response;
 }
