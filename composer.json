@@ -57,5 +57,6 @@
     "symfony/framework-bundle": "^5.1|^6.4|^7.0",
     "symfony/var-dumper": "^5.1.7|^6.0|^7.0",
     "symfony/yaml": "^5.1.7|^6.0|^7.0"
-  }
+  },
+  "prefer-stable": true
 }
