@@ -1,10 +1,10 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\Tests;
+namespace SwaraKaka\InertiaBundle\Tests;
 
-use Rompetomp\InertiaBundle\Architecture\DefaultInertiaErrorResponse;
-use Rompetomp\InertiaBundle\EventListener\InertiaListener;
-use Rompetomp\InertiaBundle\Tests\Fixtures\InertiaBaseConfig;
+use SwaraKaka\InertiaBundle\Architecture\DefaultInertiaErrorResponse;
+use SwaraKaka\InertiaBundle\EventListener\InertiaListener;
+use SwaraKaka\InertiaBundle\Tests\Fixtures\InertiaBaseConfig;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;

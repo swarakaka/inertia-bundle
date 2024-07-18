@@ -1,9 +1,9 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\EventListener;
+namespace SwaraKaka\InertiaBundle\EventListener;
 
-use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
-use Rompetomp\InertiaBundle\Architecture\InertiaResponse;
+use SwaraKaka\InertiaBundle\Architecture\InertiaInterface;
+use SwaraKaka\InertiaBundle\Architecture\InertiaResponse;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
 use Symfony\Component\HttpKernel\Event\ViewEvent;

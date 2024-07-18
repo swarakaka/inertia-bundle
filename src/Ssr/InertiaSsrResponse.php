@@ -1,6 +1,6 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\Ssr;
+namespace SwaraKaka\InertiaBundle\Ssr;
 
 class InertiaSsrResponse
 {

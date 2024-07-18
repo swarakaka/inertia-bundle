@@ -1,11 +1,11 @@
 <?php
 
-namespace Rompetomp\InertiaBundle;
+namespace SwaraKaka\InertiaBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Class RompetompInertiaBundle.
+ * Class SwaraKakaInertiaBundle.
  *
  * @author  Hannes Vermeire <hannes@codedor.be>
  *

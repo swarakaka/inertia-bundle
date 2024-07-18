@@ -1,10 +1,10 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\Service;
+namespace SwaraKaka\InertiaBundle\Service;
 
 use Closure;
-use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
-use Rompetomp\InertiaBundle\Architecture\LazyProp;
+use SwaraKaka\InertiaBundle\Architecture\InertiaInterface;
+use SwaraKaka\InertiaBundle\Architecture\LazyProp;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;

@@ -43,5 +43,5 @@ composer require swarakaka/inertia-bundle
 - 🆗 `Supported but not tested yet`
 
 Maintained with ❤️ by [skipthedragon](https://github.com/SkipTheDragon). Built
-by [rompetomp](https://github.com/rompetomp).
+by [SwaraKaka](https://github.com/SwaraKaka).
 # inertia-bundle

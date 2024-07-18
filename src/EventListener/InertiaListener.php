@@ -1,9 +1,9 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\EventListener;
+namespace SwaraKaka\InertiaBundle\EventListener;
 
-use Rompetomp\InertiaBundle\Architecture\DefaultInertiaErrorResponseInterface;
-use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
+use SwaraKaka\InertiaBundle\Architecture\DefaultInertiaErrorResponseInterface;
+use SwaraKaka\InertiaBundle\Architecture\InertiaInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Response;

@@ -1,11 +1,11 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\Tests;
+namespace SwaraKaka\InertiaBundle\Tests;
 
-use Rompetomp\InertiaBundle\Architecture\InertiaResponse;
-use Rompetomp\InertiaBundle\EventListener\InertiaResponseAttributeListener;
-use Rompetomp\InertiaBundle\Service\InertiaService;
-use Rompetomp\InertiaBundle\Tests\Fixtures\InertiaBaseConfig;
+use SwaraKaka\InertiaBundle\Architecture\InertiaResponse;
+use SwaraKaka\InertiaBundle\EventListener\InertiaResponseAttributeListener;
+use SwaraKaka\InertiaBundle\Service\InertiaService;
+use SwaraKaka\InertiaBundle\Tests\Fixtures\InertiaBaseConfig;
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ViewEvent;

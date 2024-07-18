@@ -1,9 +1,9 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\Tests;
+namespace SwaraKaka\InertiaBundle\Tests;
 
-use Rompetomp\InertiaBundle\Service\InertiaService;
-use Rompetomp\InertiaBundle\Tests\Fixtures\InertiaBaseConfig;
+use SwaraKaka\InertiaBundle\Service\InertiaService;
+use SwaraKaka\InertiaBundle\Tests\Fixtures\InertiaBaseConfig;
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

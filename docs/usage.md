@@ -1,6 +1,6 @@
 ## Making Inertia responses
 
-To make an Inertia response, inject the `Rompetomp\InertiaBundle\Architecture\InertiaInterface $inertia` typehint in your
+To make an Inertia response, inject the `SwaraKaka\InertiaBundle\Architecture\InertiaInterface $inertia` typehint in your
 controller, and use the render function on that Service:
 
 ### Injecting the InertiaInterface in your controller class:
@@ -9,7 +9,7 @@ controller, and use the render function on that Service:
 <?php
 namespace App\Controller;
 
-use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
+use SwaraKaka\InertiaBundle\Architecture\InertiaInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -32,7 +32,7 @@ class DashboardController extends AbstractController
 <?php
 namespace App\Controller;
 
-use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
+use SwaraKaka\InertiaBundle\Architecture\InertiaInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -51,10 +51,10 @@ class DashboardController extends AbstractController
 <?php
 namespace App\Controller;
 
-use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
+use SwaraKaka\InertiaBundle\Architecture\InertiaInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Rompetomp\InertiaBundle\Controller\InertiaTrait;
+use SwaraKaka\InertiaBundle\Controller\InertiaTrait;
 
 class DashboardController extends AbstractController
 {
@@ -76,7 +76,7 @@ To share data with all your components, use `$inertia->share($key, $data)`. This
 
 namespace App\EventSubscriber;
 
-use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
+use SwaraKaka\InertiaBundle\Architecture\InertiaInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -143,7 +143,7 @@ $inertia->version($version);
 
 It's more efficient to use lazy data evaluation server-side you are using partial reloads.
 
-To use lazy data, you need to use `Rompetomp\InertiaBundle\Service\Inertia::lazy`
+To use lazy data, you need to use `SwaraKaka\InertiaBundle\Service\Inertia::lazy`
 
 Sample usage:
 
@@ -151,7 +151,7 @@ Sample usage:
 <?php
 namespace App\Controller;
 
-use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
+use SwaraKaka\InertiaBundle\Architecture\InertiaInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DashboardController extends AbstractController

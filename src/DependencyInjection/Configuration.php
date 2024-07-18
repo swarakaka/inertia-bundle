@@ -1,6 +1,6 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\DependencyInjection;
+namespace SwaraKaka\InertiaBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

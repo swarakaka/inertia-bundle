@@ -1,6 +1,6 @@
 services:
-  rompetomp_inertia.inertia:
-    class: Rompetomp\InertiaBundle\Service\InertiaService
+  swarakaka_inertia.inertia:
+    class: SwaraKaka\InertiaBundle\Service\InertiaService
     public: false
     arguments:
       $engine: '@twig'
@@ -8,42 +8,42 @@ services:
       $container: '@service_container'
       $serializer: '@serializer'
 
-  Rompetomp\InertiaBundle\Architecture\InertiaInterface: '@rompetomp_inertia.inertia'
+  SwaraKaka\InertiaBundle\Architecture\InertiaInterface: '@swarakaka_inertia.inertia'
 
-  rompetomp_inertia.inertia_error_response:
-    class: Rompetomp\InertiaBundle\Architecture\DefaultInertiaErrorResponse
+  swarakaka_inertia.inertia_error_response:
+    class: SwaraKaka\InertiaBundle\Architecture\DefaultInertiaErrorResponse
     public: false
 
-  rompetomp_inertia.gateway:
-    class: Rompetomp\InertiaBundle\Ssr\HttpGateway
+  swarakaka_inertia.gateway:
+    class: SwaraKaka\InertiaBundle\Ssr\HttpGateway
     arguments:
       $httpClient: '@Symfony\Contracts\HttpClient\HttpClientInterface'
-      $inertia: '@rompetomp_inertia.inertia'
+      $inertia: '@swarakaka_inertia.inertia'
 
-  Rompetomp\InertiaBundle\Architecture\GatewayInterface: '@rompetomp_inertia.gateway'
+  SwaraKaka\InertiaBundle\Architecture\GatewayInterface: '@swarakaka_inertia.gateway'
 
-  rompetomp_inertia.twig_extension:
-    class: Rompetomp\InertiaBundle\Twig\InertiaTwigExtension
+  swarakaka_inertia.twig_extension:
+    class: SwaraKaka\InertiaBundle\Twig\InertiaTwigExtension
     public: false
     arguments:
-      $inertia: '@rompetomp_inertia.inertia'
-      $gateway: '@rompetomp_inertia.gateway'
+      $inertia: '@swarakaka_inertia.inertia'
+      $gateway: '@swarakaka_inertia.gateway'
     tags:
       - { name: twig.extension }
 
-  Rompetomp\InertiaBundle\EventListener\InertiaListener:
+  SwaraKaka\InertiaBundle\EventListener\InertiaListener:
     tags:
       - { name: kernel.event_listener, event: kernel.request }
       - { name: kernel.event_listener, event: kernel.response }
     arguments:
-      $inertia: '@rompetomp_inertia.inertia'
+      $inertia: '@swarakaka_inertia.inertia'
       $csrfTokenManager: '@security.csrf.token_manager'
       $debug: '%kernel.debug%'
       $container: '@service_container'
-      $defaultInertiaErrorResponse: '@rompetomp_inertia.inertia_error_response'
+      $defaultInertiaErrorResponse: '@swarakaka_inertia.inertia_error_response'
 
-  Rompetomp\InertiaBundle\EventListener\InertiaResponseAttributeListener:
+  SwaraKaka\InertiaBundle\EventListener\InertiaResponseAttributeListener:
     tags:
       - { name: kernel.event_listener, event: kernel.view }
     arguments:
-      $inertia: '@rompetomp_inertia.inertia'
+      $inertia: '@swarakaka_inertia.inertia'

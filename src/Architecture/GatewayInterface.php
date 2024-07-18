@@ -1,8 +1,8 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\Architecture;
+namespace SwaraKaka\InertiaBundle\Architecture;
 
-use Rompetomp\InertiaBundle\Ssr\InertiaSsrResponse;
+use SwaraKaka\InertiaBundle\Ssr\InertiaSsrResponse;
 
 interface GatewayInterface
 {

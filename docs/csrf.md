@@ -37,7 +37,7 @@ inertia:
 ### Custom Error Message
 
 You can customize the response in case of a CSRF token mismatch. To do this, you must create a new service
-and overwrite the `@rompetomp_inertia.inertia_error_response` service inside your `config/services.yaml` file. Your
+and overwrite the `@swarakaka_inertia.inertia_error_response` service inside your `config/services.yaml` file. Your
 custom service must implement the `InertiaErrorResponseInterface` interface.
 
 #### The configuration should look like this:
@@ -47,7 +47,7 @@ services:
   # The rest of your services here.....
 
   # Your custom service
-  rompetomp_inertia.inertia_error_response:
+  swarakaka_inertia.inertia_error_response:
     class: App\Service\MyCustomInertiaErrorResponse
 ```
 

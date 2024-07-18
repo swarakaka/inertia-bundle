@@ -1,6 +1,6 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\DependencyInjection;
+namespace SwaraKaka\InertiaBundle\DependencyInjection;
 
 use Exception;
 use Symfony\Component\Config\FileLocator;

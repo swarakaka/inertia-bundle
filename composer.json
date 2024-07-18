@@ -24,13 +24,13 @@
   ],
   "autoload-dev": {
     "psr-4": {
-      "Rompetomp\\InertiaBundle\\Tests\\": "tests/",
-      "Rompetomp\\InertiaBundle\\Tests\\Fixtures\\": "tests/fixtures/"
+      "SwaraKaka\\InertiaBundle\\Tests\\": "tests/",
+      "SwaraKaka\\InertiaBundle\\Tests\\Fixtures\\": "tests/fixtures/"
     }
   },
   "autoload": {
     "psr-4": {
-      "Rompetomp\\InertiaBundle\\": "src/"
+      "SwaraKaka\\InertiaBundle\\": "src/"
     },
     "exclude-from-classmap": [
       "/tests/"

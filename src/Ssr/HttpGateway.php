@@ -1,9 +1,9 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\Ssr;
+namespace SwaraKaka\InertiaBundle\Ssr;
 
-use Rompetomp\InertiaBundle\Architecture\GatewayInterface;
-use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
+use SwaraKaka\InertiaBundle\Architecture\GatewayInterface;
+use SwaraKaka\InertiaBundle\Architecture\InertiaInterface;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;

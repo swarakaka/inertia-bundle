@@ -1,11 +1,11 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\Twig;
+namespace SwaraKaka\InertiaBundle\Twig;
 
 use Closure;
-use Rompetomp\InertiaBundle\Architecture\GatewayInterface;
-use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
-use Rompetomp\InertiaBundle\Ssr\InertiaSsrResponse;
+use SwaraKaka\InertiaBundle\Architecture\GatewayInterface;
+use SwaraKaka\InertiaBundle\Architecture\InertiaInterface;
+use SwaraKaka\InertiaBundle\Ssr\InertiaSsrResponse;
 use Twig\Extension\AbstractExtension;
 use Twig\Markup;
 use Twig\TwigFunction;

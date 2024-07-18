@@ -1,13 +1,13 @@
 <?php
 
-namespace Rompetomp\InertiaBundle\Tests\Fixtures;
+namespace SwaraKaka\InertiaBundle\Tests\Fixtures;
 
 use Mockery\LegacyMockInterface;
 use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
-use Rompetomp\InertiaBundle\DependencyInjection\InertiaExtension;
-use Rompetomp\InertiaBundle\InertiaBundle;
-use Rompetomp\InertiaBundle\Service\InertiaService;
+use SwaraKaka\InertiaBundle\DependencyInjection\InertiaExtension;
+use SwaraKaka\InertiaBundle\InertiaBundle;
+use SwaraKaka\InertiaBundle\Service\InertiaService;
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\FrameworkExtension;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\DependencyInjection\Container;
