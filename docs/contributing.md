@@ -25,6 +25,6 @@ description of the issue. If possible, include a code snippet or a test case tha
 I use this project in my personal projects, so I will be actively maintaining it. If you have any questions, feel free
 to ask.
 
-Check [projects](https://github.com/SkipTheDragon/inertia-bundle/projects?query=is%3Aopen) for future plans.
+Check [projects](https://github.com/swarakaka/inertia-bundle/projects?query=is%3Aopen) for future plans.
 
 ### Notes: I mainly use this for Symfony 6 and 7 with React (no ssr) and the latest version of PHP. If you want to help me the most, please test with a different configuration, don't forget that anything helps, thank you.

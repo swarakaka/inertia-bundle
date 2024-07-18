@@ -14,10 +14,10 @@ services:
       - mv /var/www/.symfony5/bin/symfony /usr/local/bin/symfony
       - symfony new --webapp symfony
       # CD hell because composer doesn't like chaining commands ?? Or maybe it's just me.
-      - cd symfony/ && composer config repositories.'skipthedragon/inertia-bundle' path ../
+      - cd symfony/ && composer config repositories.'swarakaka/inertia-bundle' path ../
       - cd symfony/ && composer config minimum-stability dev
       - cd symfony/ && composer config prefer-stable false
-      - cd symfony/ && composer require skipthedragon/inertia-bundle
+      - cd symfony/ && composer require swarakaka/inertia-bundle
   node:
     type: node:18
     run:

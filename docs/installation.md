@@ -9,7 +9,7 @@ composer require twig symfony/serializer-pack
 Install using Composer:
 
 ```console
-composer require skipthedragon/inertia-bundle
+composer require swarakaka/inertia-bundle
 ```
 
 ```console

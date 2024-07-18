@@ -9,7 +9,7 @@
     "monolith",
     "php"
   ],
-  "homepage": "https://github.com/SkipTheDragon/inertia-bundle",
+  "homepage": "https://github.com/swarakaka/inertia-bundle",
   "type": "symfony-bundle",
   "license": "MIT",
   "authors": [
