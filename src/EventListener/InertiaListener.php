@@ -4,6 +4,7 @@ namespace Rompetomp\InertiaBundle\EventListener;
 
 use Rompetomp\InertiaBundle\Architecture\DefaultInertiaErrorResponseInterface;
 use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
+use Rompetomp\InertiaBundle\Architecture\InvalidCSRFErrorResponse;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,18 +48,17 @@ class InertiaListener
         }
 
         // Validate CSRF token
-        if ($this->container->getParameter('inertia.csrf.enabled')) {
+        if ($this->shouldValidateOrGenerateCSRF($event)) {
             $csrfToken = $request->headers->get(
                 $this->container->getParameter('inertia.csrf.header_name')
             );
-
             if (
                 !$this->csrfTokenManager->isTokenValid(
                     new CsrfToken($this->inertiaCsrfTokenName, $csrfToken)
                 )
             ) {
                 $event->setResponse(
-                    $this->defaultInertiaErrorResponse->getResponse()
+                    (new InvalidCSRFErrorResponse())->getResponse()
                 );
                 return;
             }
@@ -80,6 +80,20 @@ class InertiaListener
         }
     }
 
+    protected function shouldValidateOrGenerateCSRF($event): bool
+    {
+        $route = $event->getRequest()->attributes->get('_route');
+
+        // Ignore requests to internal Symfony routes/Profiler
+        if (is_string($route) && str_starts_with($route, '_')) {
+            return false;
+        }
+
+        return $this->container->getParameter('inertia.csrf.enabled') &&
+            $event->isMainRequest() && // Only set the cookie on the main request
+            !$event->getResponse()?->isRedirect(); // Don't set the cookie on redirects (onKernelResponse)
+    }
+
     /**
      * @param ResponseEvent $event
      * @return void
@@ -90,7 +104,7 @@ class InertiaListener
          * If the CSRF protection is enabled, we need to refresh the CSRF token.
          * We add this cookie to any request, not just Inertia requests.
          */
-        if ($this->container->getParameter('inertia.csrf.enabled')) {
+        if ($this->shouldValidateOrGenerateCSRF($event)) {
             $event
                 ->getResponse()
                 ->headers->setCookie(
