@@ -1,5 +1,5 @@
 {
-  "name": "skipthedragon/inertia-bundle",
+  "name": "swarakaka/inertia-bundle",
   "description": "Inertia.js server-side adapter for Symfony 4, 5, 6 and 7.",
   "keywords": [
     "Symfony",
@@ -20,6 +20,10 @@
     {
       "name": "Tudorache Leonard-Valentin",
       "email": "tudorache.leonard@wyverr.com"
+    },
+    {
+      "name": "Swara Abdalla",
+      "email": "swara09@gmail.com"
     }
   ],
   "autoload-dev": {
